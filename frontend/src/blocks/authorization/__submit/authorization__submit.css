@@ -1,0 +1,20 @@
+.authorization__submit {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    border: none;
+    border-radius: 2px;
+    color: #000000;
+    background: #ffffff;
+    margin-top: 186px;
+    margin-bottom: 15px;
+    padding: 14px 0;
+    height: 50px;
+  }
+  
+  .authorization__submit:hover {
+    cursor: pointer;
+    opacity: 0.85;
+  }

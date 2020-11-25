@@ -1,0 +1,9 @@
+.popup__input_card-name {
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 400px) {
+    .popup__input_card-name {
+        margin-top: 10px;
+    }
+  }

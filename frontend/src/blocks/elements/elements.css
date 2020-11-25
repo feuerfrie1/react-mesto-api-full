@@ -1,0 +1,35 @@
+@import url(../elements/__card/elements__card.css);
+@import url(../elements/__image/elements__image.css);
+@import url(../elements/__like/elements__like.css);
+@import url(../elements/__title/elements__title.css);
+@import url(../elements/__content/elements__content.css);
+@import url(../elements/__delete/elements__delete.css);
+@import url(../elements/__imagescale/elements__imagescale.css);
+@import url(../elements/__like-amount/elements__like-amount.css);
+
+.elements {
+    max-width: 882px;
+    display: grid;
+    grid-template-columns: repeat(3, 3fr);
+    grid-template-rows: repeat(2, 2fr);
+    margin: 0 auto;
+    align-self: center;
+    align-items: center;
+    grid-gap: 18px;
+    padding-top: 46px;
+}
+
+@media screen and (max-width: 756px) {
+    .elements {
+        grid-template-columns: repeat(2, 2fr);
+        grid-template-rows: repeat(3, 3fr);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .elements {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(6, 6fr);
+    }
+}
+

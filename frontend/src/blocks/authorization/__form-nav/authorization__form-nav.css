@@ -1,0 +1,12 @@
+.authorization__form-nav {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #ffffff;
+    background: #000000;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+  }

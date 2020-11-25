@@ -1,0 +1,15 @@
+@import url('./__form/authorization__form.css');
+@import url('./__form-header/authorization__form-header.css');
+@import url('./__form-nav/authorization__form-nav.css');
+@import url('./__form-link/authorization__form-link.css');
+@import url('./__submit/authorization__submit.css');
+@import url('./__input/authorization__input.css');
+
+.authorization {
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }

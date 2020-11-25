@@ -1,0 +1,39 @@
+@import url(./_confirm/popup__submit_confirm.css);
+
+.popup__submit {
+    height: 50px;
+    width: 358px;
+    padding: 0;
+    margin-top: 140px;
+    border: none;
+    font: inherit;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #FFF;
+    cursor: pointer;
+    border-radius: 2px;
+    background-color: #000;
+}
+
+.popup__submit:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: .3s;
+}
+
+@media screen and (max-width: 600px) {
+    .popup__submit {
+        width: 258px;
+        margin-top: 120px;
+    }
+  }
+
+@media screen and (max-width: 400px) {
+    .popup__submit {
+        width: 210px;
+        margin-top: 86px;
+        font-size: 14px;
+        height: 40px;
+    }
+  }

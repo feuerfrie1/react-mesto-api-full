@@ -1,0 +1,34 @@
+.popup__input_about {
+    height: 40px;
+    border: none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 0;
+    width: 358px;
+    border-bottom: 1px solid grey;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .popup__input_about {
+        width: 258px;
+    }
+  }
+
+@media screen and (max-width: 400px) {
+    .popup__input_about {
+        width: 210px;
+        margin-top: 20px;
+        font-size: 12px;
+    }
+  }
+
+.popup__input_about::-webkit-input-placeholder {
+    color: #000;
+};
+
+.popup__input_about::-moz-placeholder {
+    color: #000;
+};

@@ -1,0 +1,13 @@
+.header__open-menu {
+    width: 30px;
+    height: 30px;
+    margin-right: 30px;
+    border: none;
+    outline: none;
+    background: inherit;
+  }
+  
+  .header__open-menu:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }

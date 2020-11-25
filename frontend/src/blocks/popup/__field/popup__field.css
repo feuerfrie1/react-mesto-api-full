@@ -1,0 +1,33 @@
+.popup__field {
+    height: 40px;
+    border: none;
+    margin-top: 34px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 0;
+    width: 358px;
+}
+
+@media screen and (max-width: 600px) {
+    .popup__field {
+        width: 258px;
+    }
+  }
+
+@media screen and (max-width: 400px) {
+    .popup__field {
+        width: 210px;
+        margin-top: 10px;
+        font-size: 12px;
+    }
+  }
+
+.popup__field::-webkit-input-placeholder {
+    color: #000;
+};
+
+.popup__field::-moz-placeholder {
+    color: #000;
+};

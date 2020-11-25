@@ -1,0 +1,17 @@
+.popup__createcardabout {
+    height: 27px;
+    border-width: 0px 0px 1px;
+    border-bottom: 1px solid silver;
+    margin-top: 29px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+@media screen and (max-width: 400px) {
+    .popup__createcardabout {
+        margin-top: 10px;
+        font-size: 12px;
+    }
+  }

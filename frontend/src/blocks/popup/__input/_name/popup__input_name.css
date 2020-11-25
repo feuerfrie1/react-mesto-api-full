@@ -1,0 +1,32 @@
+.popup__input_name {
+    height: 40px;
+    border: none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 0;
+    width: 358px;
+    border-bottom: 1px solid grey;
+}
+
+@media screen and (max-width: 600px) {
+    .popup__input_name {
+        width: 258px;
+    }
+  }
+
+@media screen and (max-width: 400px) {
+    .popup__input_name {
+        width: 210px;
+        font-size: 12px;
+    }
+  }
+
+.popup__input_name::-webkit-input-placeholder {
+    color: #000;
+};
+
+.popup__input_name::-moz-placeholder {
+    color: #000;
+};

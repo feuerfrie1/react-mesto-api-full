@@ -1,0 +1,17 @@
+.profile__cover {
+    background-color: #000;
+    z-index: 10;
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    opacity: 0;
+    background-image: url('../../../images/Vector.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.profile__cover:hover {
+    opacity: .8;
+    cursor: pointer;
+    transition: linear .2s;  
+}

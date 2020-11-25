@@ -1,0 +1,25 @@
+.popup__name {
+    height: 27px;
+    border-width: 0px 0px 1px;
+    border-bottom: 1px solid silver;
+    margin-top: 54px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+@media screen and (max-width: 400px) {
+    .popup__name {
+        margin-top: 20px;
+        font-size: 12px;
+    }
+  }
+
+.popup__name::-webkit-input-placeholder {
+    color: #000;
+};
+
+.popup__name::-moz-placeholder {
+    color: #000;
+};

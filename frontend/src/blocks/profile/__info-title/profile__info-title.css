@@ -1,0 +1,44 @@
+.profile__info-title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 56px;
+    color: #FFF;
+    margin: 0;
+}
+
+@media screen and (max-width: 756px) {
+    .profile__info-title {
+        font-size: 35px;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .profile__info-title {
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .profile__info-title {
+        font-size: 42px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .profile__info-title {
+        font-size: 35px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .profile__info-title {
+        font-size: 28px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .profile__info-title {
+        font-size: 25px;
+    }
+}

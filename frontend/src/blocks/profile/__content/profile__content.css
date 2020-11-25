@@ -1,0 +1,9 @@
+.profile__content {
+    padding-left: 30px;
+}
+
+@media screen and (max-width: 400px) {
+    .profile__content{
+        display: contents;
+    }
+}

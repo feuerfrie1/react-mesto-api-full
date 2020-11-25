@@ -1,0 +1,6 @@
+.popup__error_active {
+    opacity: 1;
+    visibility: visible;
+    transition: .1s opacity, .1s visibility ease-in;
+    color: #FF0000;
+}

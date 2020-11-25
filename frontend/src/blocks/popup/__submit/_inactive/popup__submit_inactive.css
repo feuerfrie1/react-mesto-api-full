@@ -1,0 +1,11 @@
+.popup__submit_inactive {
+    background-color: transparent;
+    border: 1px solid black;
+    opacity: .2;
+    cursor: default;
+    color: #000;
+}
+
+.popup__submit_inactive:hover{
+    background-color: rgba(255, 255, 255, .2);
+}

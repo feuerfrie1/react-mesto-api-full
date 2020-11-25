@@ -1,0 +1,24 @@
+@import url(../header/__logo/header__logo.css);
+@import url(../header/__email/header__email.css);
+@import url(../header/__link/header__link.css);
+@import url(../header/__logo/header__logo.css);
+@import url(../header/__logout/header__logout.css);
+@import url(../header/__menu-icon/header__menu-icon.css);
+@import url(../header/__menu/header__menu.css);
+@import url(../header/__open-menu/header__open-menu.css);
+
+.header {
+    max-width: 882px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 45px;
+    border-bottom: 1px solid #545454;
+}
+
+@media screen and (max-width: 400px) {
+    .header {
+        width: 100%;
+    }
+}
