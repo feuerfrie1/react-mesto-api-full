@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-expressions */
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcrypt');
 
 const validatorOptions = {
   protocols: ['http', 'https'],
@@ -56,7 +57,7 @@ userSchema.statics.findUserByCredentials = function findUser(email, password) {
       if (!user) {
         return Promise.reject(new Error('Почта или пароль введены неверно!'));
       }
-      return bcript.compare(password, user.password)
+      return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
             return Promise.reject(new Error('Почта или пароль введены неверно!'));

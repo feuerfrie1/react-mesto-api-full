@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-expressions */
 const mongoose = require('mongoose');
+const validator = require('validator');
 const cardSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -10,9 +11,8 @@ const cardSchema = new mongoose.Schema({
   link: {
     type: String,
     validate: {
-      validator(str) {
-        const regExp = /^(https?:\/\/)?([\da-z\\.-]+)\.([a-z\\.]{2,6})([\\/\w \\.-]*)*\/?$/;
-        return regExp.test(str);
+        validator(link) {
+          return validator.isURL(link, validatorOptions);
       },
       message: 'Ссылка введена неверно',
     },
