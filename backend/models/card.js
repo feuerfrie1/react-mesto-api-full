@@ -1,6 +1,13 @@
 /* eslint-disable no-unused-expressions */
 const mongoose = require('mongoose');
 const validator = require('validator');
+
+const validatorOptions = {
+  protocols: ['http', 'https'],
+  require_protocol: true,
+  require_valid_protocol: true,
+};
+
 const cardSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -11,8 +18,8 @@ const cardSchema = new mongoose.Schema({
   link: {
     type: String,
     validate: {
-        validator(link) {
-          return validator.isURL(link, validatorOptions);
+      validator(link) {
+        return validator.isURL(link, validatorOptions);
       },
       message: 'Ссылка введена неверно',
     },
@@ -21,10 +28,12 @@ const cardSchema = new mongoose.Schema({
   owner: {
     type: Object,
     required: true,
+    ref: 'user',
   },
   likes: {
     type: Object,
     default: [],
+    ref: 'user',
   },
   createdAt: {
     type: Date,

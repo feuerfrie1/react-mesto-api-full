@@ -1,50 +1,45 @@
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const ConflictDataError = require('../errors/conflict-data-err');
+const LoginError = require('../errors/login-err');
+const NotFoundError = require('../errors/not-found-err');
 
-module.exports.getAllUsers = (req, res) => {
+const { JWT_SECRET = 'dev-key' } = process.env;
+
+module.exports.getAllUsers = (req, res, next) => {
   User.find({})
-    .then((user) => res.send({ data: user }))
-    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
+    .orFail({ message: 'С запросом что-то не так', statusCode: 400 })
+    .then((users) => res.send({ data: users }))
+    .catch(next);
 };
 
-module.exports.getUserById = (req, res) => {
+module.exports.getUserById = (req, res, next) => {
   User.findOne({ _id: req.params.id })
-    .orFail(new Error('NotValidId'))
+    .orFail(() => new NotFoundError('Пользователь не найден'))
+    .then((user) => res.send({ data: user }))
+    .catch(next);
+};
+
+module.exports.getUserInfo = (req, res, next) => {
+  User.findById(req.user._id)
     .then((user) => {
-      res.status(200).send({ data: user });
+      if (!user) throw new NotFoundError('Пользователь не найден');
+      res.send(user);
     })
-    .catch((err) => {
-      if (err.message === 'NotValidId') {
-        res.status(404).send({ message: 'Пользователя нет в базе' });
-      } else {
-        res.status(500).send({ message: 'Произошла ошибка' });
-      }
-    });
+    .catch(next);
 };
 
 module.exports.createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
-  bcript.hash(password, 10)
+  bcrypt.hash(password, 10)
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
     .then((user) => res.status(201).send({ _id: user._id, email }))
     .catch((err) => next(new ConflictDataError(err)));
-};
-
-module.exports.login = (req, res, next) => {
-  const { email, password } = req.body;
-  User.findUserByCredentials(email, password)
-    .then((user) => {
-      const token = jwt.sign(
-        { _id: user._id },
-        JWT_SECRET,
-        { expiresIn: '7d' },
-      );
-      res.send({ token });
-    })
-    .catch((err) => next(new LoginError(err.message)));
 };
 
 module.exports.patchProfileInfo = (req, res, next) => {
@@ -61,4 +56,18 @@ module.exports.patchProfileAvatar = (req, res, next) => {
     .orFail(() => new NotFoundError('Нет пользователя с таким id'))
     .then((user) => res.send({ data: user }))
     .catch(next);
+};
+
+module.exports.login = (req, res, next) => {
+  const { email, password } = req.body;
+  User.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = jwt.sign(
+        { _id: user._id },
+        JWT_SECRET,
+        { expiresIn: '7d' },
+      );
+      res.send({ token });
+    })
+    .catch((err) => next(new LoginError(err.message)));
 };

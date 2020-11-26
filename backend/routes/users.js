@@ -1,10 +1,16 @@
 const userRouter = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const linkValidation = /^((http|https):\/\/)(www\.)?([A-Za-z0-9.-]{1,256})\.[A-Za-z]{2,20}/;
-const { getAllUsers, getUserById, createUser, patchProfileInfo, patchProfileAvatar } = require('../controllers/users');
+const {
+  getAllUsers,
+  getUserById,
+  patchProfileInfo,
+  patchProfileAvatar,
+  getUserInfo,
+} = require('../controllers/users');
 
-userRouter.post('/', createUser);
 userRouter.get('/', getAllUsers);
+userRouter.get('/me', getUserInfo);
 userRouter.get('/:id', celebrate({
   params: Joi.object().keys({
     id: Joi.string().alphanum().length(24).hex(),
@@ -21,6 +27,5 @@ userRouter.patch('/me/avatar', celebrate({
     link: Joi.string().pattern(linkValidation).required(),
   }),
 }), patchProfileAvatar);
-
 
 module.exports = userRouter;

@@ -8,6 +8,7 @@ const validatorOptions = {
   require_protocol: true,
   require_valid_protocol: true,
 };
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,

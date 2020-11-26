@@ -1,14 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { errors } = require('celebrate');
+const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
 const authRouter = require('./routes/authRouter');
-const { errors } = require('celebrate');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('cors');
+const NotFoundError = require('./errors/not-found-err');
 const { PORT = 3000 } = process.env;
 const app = express();
 app.use(cors({ origin: true }));
@@ -41,13 +42,17 @@ app.use('/cards', cardRouter);
 app.use(errorLogger);
 app.use(errors());
 
-app.use(errors());
 app.use((err, req, res, next) => {
-  const { statusCode = 500, message, name } = err;
-  if (name === 'ValidationError' || statusCode === 400) return res.status(400).send({ message: 'Переданы некорректные данные' });
-  return res
-    .status(statusCode)
-    .send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
+  if (err.status) {
+    res.status(err.status).send(err.message);
+    return;
+  }
+  res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` });
+  next();
+});
+
+app.use(() => {
+  throw new NotFoundError({ message: 'Запрашиваемый ресурс не найден' });
 });
 
 app.listen(PORT, () => {
