@@ -42,6 +42,10 @@ app.use('/cards', cardRouter);
 app.use(errorLogger);
 app.use(errors());
 
+app.use(() => {
+  throw new NotFoundError({ message: 'Запрашиваемый ресурс не найден' });
+});
+
 app.use((err, req, res, next) => {
   if (err.status) {
     res.status(err.status).send(err.message);
@@ -49,10 +53,6 @@ app.use((err, req, res, next) => {
   }
   res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` });
   next();
-});
-
-app.use(() => {
-  throw new NotFoundError({ message: 'Запрашиваемый ресурс не найден' });
 });
 
 app.listen(PORT, () => {

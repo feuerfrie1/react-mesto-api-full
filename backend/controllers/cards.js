@@ -4,6 +4,7 @@ const NotFoundError = require('../errors/not-found-err');
 
 module.exports.getAllCards = (req, res, next) => {
   Card.find({})
+    .orFail({ message: 'С запросом что-то не так', statusCode: 400 })
     .then((cards) => res.send({ data: cards }))
     .catch(next);
 };
@@ -17,19 +18,12 @@ module.exports.createCard = (req, res, next) => {
 
 module.exports.deleteCard = (req, res, next) => {
   const owner = req.user._id;
-  Card.findByIdAndRemove({ _id: req.params.id, owner })
+  Card.findOne({ _id: req.params.id })
+    .orFail(() => new NotFoundError('Карточка не найдена'))
     .then((card) => {
-      if (card) {
-        res.send(card);
-        return;
-      }
-      throw new NotFoundError({ message: 'Нет карточки с таким id' });
+      if (String(card.owner) !== owner) throw new ForbiddenError('Недостаточно прав');
+      return Card.findByIdAndDelete(card._id);
     })
-    .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        throw new NotFoundError({ message: 'Нет карточки с таким id' });
-      }
-      throw new ForbiddenError({ message: 'Необходима авторизация' });
-    })
+    .then((success) => res.send(success))
     .catch(next);
 };

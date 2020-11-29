@@ -15,15 +15,9 @@ module.exports.getAllUsers = (req, res, next) => {
 };
 
 module.exports.getUserById = (req, res, next) => {
-  User.findById({ _id: req.params.id })
-    .then((user) => {
-      if (user) {
-        res.send(user);
-      }
-    })
-    .catch((err) => {
-      throw new NotFoundError({ message: `Пользователь с идентификатором ${err.message} не найден` });
-    })
+  User.findOne({ _id: req.params.id })
+    .orFail(() => new NotFoundError('Пользователь не найден'))
+    .then((user) => res.send({ data: user }))
     .catch(next);
 };
 
@@ -44,11 +38,8 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
-    .then((user) => res.send(user))
-    .catch((err) => {
-      throw new ConflictDataError({ message: `Запрос некорректен:${err.message}` });
-    })
-    .catch(next);
+    .then((user) => res.status(201).send({ _id: user._id, email }))
+    .catch((err) => next(new ConflictDataError(err)));
 };
 
 module.exports.patchProfileInfo = (req, res, next) => {

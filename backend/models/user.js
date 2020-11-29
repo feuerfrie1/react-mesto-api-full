@@ -30,6 +30,7 @@ const userSchema = new mongoose.Schema({
       },
       message: 'Ссылка введена неверно',
     },
+    required: true,
   },
   email: {
     type: String,
