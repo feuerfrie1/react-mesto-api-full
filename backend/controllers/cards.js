@@ -4,8 +4,7 @@ const NotFoundError = require('../errors/not-found-err');
 
 module.exports.getAllCards = (req, res, next) => {
   Card.find({})
-    .orFail({ message: 'С запросом что-то не так', statusCode: 400 })
-    .then((cards) => res.send({ data: cards }))
+    .then((cards) => res.send(cards))
     .catch(next);
 };
 
