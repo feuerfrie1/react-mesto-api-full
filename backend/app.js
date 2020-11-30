@@ -18,7 +18,7 @@ const limiter = rateLimit({
   max: 100,
 });
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
+mongoose.connect('mongodb://localhost:27017/mestodbase', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -47,11 +47,12 @@ app.use(() => {
 });
 
 app.use((err, req, res, next) => {
-  if (err.status) {
-    res.status(err.status).send(err.message);
-    return;
-  }
-  res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` });
+  const { statusCode = 500, message } = err;
+  res
+    .status(statusCode)
+    .send({
+      message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
+    });
   next();
 });
 

@@ -39,7 +39,7 @@ module.exports.createUser = (req, res, next) => {
       name, about, avatar, email, password: hash,
     }))
     .then((user) => res.status(201).send({ _id: user._id, email }))
-    .catch((err) => next(new ConflictDataError(err)));
+    .catch(() => next(new ConflictDataError('Пользователь с таким email уже зарегистрирован')));
 };
 
 module.exports.patchProfileInfo = (req, res, next) => {
