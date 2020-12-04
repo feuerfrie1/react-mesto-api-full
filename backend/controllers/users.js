@@ -1,15 +1,15 @@
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const ConflictDataError = require('../errors/conflict-data-err');
 const LoginError = require('../errors/login-err');
 const NotFoundError = require('../errors/not-found-err');
+const BadRequestError = require('../errors/bad-request-err');
 
 const { JWT_SECRET = 'dev-key' } = process.env;
 
 module.exports.getAllUsers = (req, res, next) => {
   User.find({})
-    .orFail({ message: 'С запросом что-то не так', statusCode: 400 })
+    .orFail(() => new BadRequestError('С запросом что-то не так'))
     .then((users) => res.send({ data: users }))
     .catch(next);
 };
@@ -34,12 +34,26 @@ module.exports.createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
-  bcrypt.hash(password, 10)
-    .then((hash) => User.create({
-      name, about, avatar, email, password: hash,
-    }))
-    .then((user) => res.status(201).send({ _id: user._id, email }))
-    .catch(() => next(new ConflictDataError('Пользователь с таким email уже зарегистрирован')));
+  User.create({
+    email,
+    password,
+    name,
+    avatar,
+    about,
+  }).then((user) => res.status(201).send({
+    _id: user._id,
+    email: user.email,
+  }))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        const errorList = Object.keys(err.errors);
+        const messages = errorList.map((item) => err.errors[item].message);
+        return next(new BadRequestError({ message: `Ошибка валидации: ${messages.join(' ')}` }));
+      } if (err.code === 11000) {
+        return next(new ConflictDataError('Пользователь с таким email уже зарегистрирован'));
+      }
+      return next(err);
+    });
 };
 
 module.exports.patchProfileInfo = (req, res, next) => {

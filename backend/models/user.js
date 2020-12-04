@@ -12,13 +12,11 @@ const validatorOptions = {
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
     minlength: 2,
     maxlength: 30,
   },
   about: {
     type: String,
-    required: true,
     minlength: 2,
     maxlength: 30,
   },
@@ -45,10 +43,22 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 2,
+    minlength: 6,
     maxlength: 500,
     select: false,
   },
+});
+
+userSchema.pre('save', function (next) {
+  if (!this.isModified('password')) return next();
+  return bcrypt.hash(this.password, 10)
+    .then((hash) => {
+      this.password = hash;
+      next();
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
 userSchema.statics.findUserByCredentials = function findUser(email, password) {

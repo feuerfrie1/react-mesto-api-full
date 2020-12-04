@@ -8,14 +8,6 @@ authRouter.post('/signin', celebrate({
     password: Joi.string().required().min(2).max(500),
   }),
 }), login);
-authRouter.post('/signup', celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string().uri({ scheme: ['https', 'http'] }),
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(2).max(500),
-  }),
-}), createUser);
+authRouter.post('/signup', createUser);
 
 module.exports = authRouter;

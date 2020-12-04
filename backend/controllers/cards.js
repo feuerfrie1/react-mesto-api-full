@@ -1,18 +1,19 @@
 const Card = require('../models/card');
 const ForbiddenError = require('../errors/forbidden-err');
 const NotFoundError = require('../errors/not-found-err');
+const BadRequestError = require('../errors/bad-request-err');
 
 module.exports.getAllCards = (req, res, next) => {
   Card.find({})
     .then((cards) => res.send(cards))
-    .catch(next);
+    .catch(() => next(new BadRequestError('С запросом что-то не так')));
 };
 
 module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.send({ data: card }))
-    .catch(next);
+    .catch(() => next(new BadRequestError('С запросом что-то не так')));
 };
 
 module.exports.deleteCard = (req, res, next) => {

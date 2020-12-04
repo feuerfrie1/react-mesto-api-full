@@ -43,7 +43,7 @@ app.use(errorLogger);
 app.use(errors());
 
 app.use(() => {
-  throw new NotFoundError({ message: 'Запрашиваемый ресурс не найден' });
+  throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
 
 app.use((err, req, res, next) => {
