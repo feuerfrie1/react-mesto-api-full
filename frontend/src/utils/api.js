@@ -1,5 +1,7 @@
 import { token } from "./utils";
 
+import { getToken } from "./utils";
+
 class Api {
   constructor(options) {
     this.baseUrl = options.baseUrl;
@@ -9,6 +11,7 @@ class Api {
   getUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, {
       headers: this.headers,
+      'authorization': `Bearer ${getToken()}`,
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -20,6 +23,7 @@ class Api {
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
       headers: this.headers,
+      'authorization': `Bearer ${getToken()}`,
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -32,6 +36,7 @@ class Api {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this.headers,
+      'authorization': `Bearer ${getToken()}`,
       body: JSON.stringify({
         name: name,
         about: about,
@@ -48,6 +53,7 @@ class Api {
     return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
       headers: this.headers,
+      'authorization': `Bearer ${getToken()}`,
       body: JSON.stringify({
         name: card.name,
         link: card.link,
@@ -64,6 +70,7 @@ class Api {
     return fetch(`${this.baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this.headers,
+      'authorization': `Bearer ${getToken()}`,
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -76,6 +83,7 @@ class Api {
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
       method: `${status ? `PUT` : `DELETE`}`,
       headers: this.headers,
+      'authorization': `Bearer ${getToken()}`,
     })
       .then((res) => {
         if (res.ok) {
@@ -90,6 +98,7 @@ class Api {
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
       method: "DELETE",
       headers: this.headers,
+      'authorization': `Bearer ${getToken()}`,
     })
       .then((res) => {
         if (res.ok) {
@@ -104,6 +113,7 @@ class Api {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this.headers,
+      'authorization': `Bearer ${getToken()}`,
       body: JSON.stringify({
         avatar: userAvatar,
       }),

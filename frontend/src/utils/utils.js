@@ -1,10 +1,14 @@
+const TOKEN_KEY = 'jwt';
+
 export const token = {
   baseUrl: "//api.feuerfrie.students.nomoreparties.xyz",
   headers: {
-    authorization: "2eeb39c4-648d-45ea-9400-2121e3e34a4d",
-    "Content-Type": "application/json",
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': "application/json",
   },
 };
+
+export const getToken = () => localStorage.getItem(TOKEN_KEY);
 
 export const object = {
   formSelector: ".popup__container",
