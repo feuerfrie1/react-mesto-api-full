@@ -1,17 +1,16 @@
-import { token } from "./utils";
 
-import { getToken } from "./utils";
-
+import { baseUrl } from "./utils";
 class Api {
-  constructor(options) {
-    this.baseUrl = options.baseUrl;
-    this.headers = options.headers;
+  constructor(baseUrl) {
+    this.baseUrl = baseUrl;
   }
 
   getUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, {
-      headers: this.headers,
-      'authorization': `Bearer ${getToken()}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+       },
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -22,8 +21,10 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
-      headers: this.headers,
-      'authorization': `Bearer ${getToken()}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+       },
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -35,8 +36,10 @@ class Api {
   updateUserInfo(name, about) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this.headers,
-      'authorization': `Bearer ${getToken()}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+       },
       body: JSON.stringify({
         name: name,
         about: about,
@@ -52,8 +55,10 @@ class Api {
   addNewCard(card) {
     return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
-      headers: this.headers,
-      'authorization': `Bearer ${getToken()}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+       },
       body: JSON.stringify({
         name: card.name,
         link: card.link,
@@ -69,8 +74,10 @@ class Api {
   deleteCard(id) {
     return fetch(`${this.baseUrl}/cards/${id}`, {
       method: "DELETE",
-      headers: this.headers,
-      'authorization': `Bearer ${getToken()}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+       },
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -82,8 +89,10 @@ class Api {
   putLike(cardId, status) {
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
       method: `${status ? `PUT` : `DELETE`}`,
-      headers: this.headers,
-      'authorization': `Bearer ${getToken()}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+       },
     })
       .then((res) => {
         if (res.ok) {
@@ -97,8 +106,10 @@ class Api {
   deleteLike(cardId) {
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
       method: "DELETE",
-      headers: this.headers,
-      'authorization': `Bearer ${getToken()}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+       },
     })
       .then((res) => {
         if (res.ok) {
@@ -109,14 +120,14 @@ class Api {
       .then((data) => data);
   }
 
-  setUserAvatar(userAvatar) {
+  setUserAvatar(avatar) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this.headers,
-      'authorization': `Bearer ${getToken()}`,
-      body: JSON.stringify({
-        avatar: userAvatar,
-      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+       },
+      body: JSON.stringify(avatar),
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -126,6 +137,6 @@ class Api {
   }
 }
 
-const api = new Api(token);
+const api = new Api(baseUrl);
 
 export default api;

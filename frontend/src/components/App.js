@@ -7,6 +7,7 @@ import Login from './Login';
 import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
 import * as auth from '../utils/auth';
+import * as utils from '../utils/utils';
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
@@ -33,7 +34,7 @@ function App() {
     auth.authorize(email, password)
         .then(data => {
             if (data.token) {
-                localStorage.setItem('token', data.token);
+                localStorage.setItem('jwt', data.token);
                 setEmail('');
                 setPassword('');
                 handleLogin();

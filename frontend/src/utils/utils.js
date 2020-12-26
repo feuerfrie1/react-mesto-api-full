@@ -1,14 +1,10 @@
-const TOKEN_KEY = 'jwt';
+export const baseUrl = `${window.location.protocol}${process.env.REACT_APP_API_URL}`;
 
-export const token = {
-  baseUrl: "//api.feuerfrie.students.nomoreparties.xyz",
-  headers: {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': "application/json",
-  },
-};
+export const setToken = (token) => {
+  localStorage.setItem('jwt', token);
+}
 
-export const getToken = () => localStorage.getItem(TOKEN_KEY);
+export const getToken = () => localStorage.getItem('jwt');
 
 export const object = {
   formSelector: ".popup__container",
