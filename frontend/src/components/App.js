@@ -7,7 +7,6 @@ import Login from './Login';
 import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
 import * as auth from '../utils/auth';
-import * as utils from '../utils/utils';
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 function Login(props) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  
+
   function handleChangeEmail (e) {
     setEmail(e.target.value);
   }

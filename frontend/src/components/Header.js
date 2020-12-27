@@ -9,9 +9,7 @@ function Header(props) {
   const headerElement = React.createRef();
   const [headerWidth, setHeaderWidth] = React.useState('');
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  //console.log(loggedIn);
-  //console.log(loggedInEmail);
-  //console.log(signOut);
+
   function handleMenu () {
     setIsMenuOpen(!isMenuOpen);
   }
