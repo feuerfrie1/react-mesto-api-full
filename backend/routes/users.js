@@ -24,7 +24,7 @@ userRouter.patch('/me', celebrate({
 }), patchProfileInfo);
 userRouter.patch('/me/avatar', celebrate({
   body: Joi.object().keys({
-    link: Joi.string().pattern(linkValidation).required(),
+    avatar: Joi.string().pattern(linkValidation).required(),
   }),
 }), patchProfileAvatar);
 

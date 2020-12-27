@@ -65,8 +65,8 @@ module.exports.patchProfileInfo = (req, res, next) => {
 };
 
 module.exports.patchProfileAvatar = (req, res, next) => {
-  const { link } = req.body;
-  User.findOneAndUpdate({ _id: req.user._id }, { avatar: link }, { new: true, runValidators: true })
+  const { avatar } = req.body;
+  User.findOneAndUpdate({ _id: req.user._id }, { avatar: avatar }, { new: true, runValidators: true })
     .orFail(() => new NotFoundError('Нет пользователя с таким id'))
     .then((user) => res.send({ data: user }))
     .catch(next);
