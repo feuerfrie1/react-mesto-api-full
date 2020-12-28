@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
-const isEmail = require('validator/lib/isEmail');
 
 const validatorOptions = {
   protocols: ['http', 'https'],
