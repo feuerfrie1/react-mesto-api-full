@@ -69,21 +69,21 @@ const handleRegisterSubmit = (email, password) => {
   }
   function signOut () {
     setLoggedInEmail('');
-    localStorage.removeItem('token');
+    localStorage.removeItem('jwt');
     setLoggedIn(false);
     history.push('/sign-in');
   }
   function checkToken() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('jwt');
     if (token) {
       auth.getToken(token)
       .then((res) => {
-        if (res.data) {
+        if (res) {
           handleLogin();
-          setLoggedInEmail(res.data.email);
+          setLoggedInEmail(res.email);
           history.push('/cards');
         } else {
-          localStorage.removeItem('token');
+          localStorage.removeItem('jwt');
         }
       })
       .catch((err) => console.log(err));
