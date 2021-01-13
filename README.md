@@ -1,7 +1,7 @@
 # Проектная работа №15: Mesto фронтенд + бэкенд
 
 Сервер: https://api.feuerfriee.students.nomoreparties.xyz/
-Фронтенд: https://feuerfrie.students.nomoreparties.xyz/cards
+Фронтенд: https://feuerfrie.students.nomoreparties.xyz/
 Публичный IP: 178.154.229.52
 
 ## Директории
